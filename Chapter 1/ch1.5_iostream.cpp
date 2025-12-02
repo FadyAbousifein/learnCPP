@@ -19,20 +19,27 @@
  * that is assigned to the associated variable.
  *
  * note that each line of input data in the buffer is terminated by a \n character.
+ *
+ * >> Operator: if std::cin failed extraction prior to the current extraction, this 
+ * extracition will not even be attempted (aborts immediatley). Leading whitespace
+ * characters (spaces, tabs, newlines) are discareded from the input buffer. Only if 
+ * the buffer is empty will the user be prompted to enter more data. >> will 
+ * extract as many characters as it can until a newline is encountered or a character
+ * that is not valid for the variable. 
 */
 
 int main () {
-    std::cout << "Enter three numbers: "; 
-    
+    // print text to the console 
+    std::cout << "Enter two numbers: "; 
+
+    // initalize two variables 
     int x{}; 
-    std::cin >> x; 
+    int y{};
 
-    int y{}; 
-    std::cin >> y; 
-
-    int z{}; 
-    std::cin >> z; 
-    
-    std::cout << "You entered " << x << ", " << y << ", " << "and " << z << '\n'; 
+    // read from the character input stream twice
+    // case 1: [ ,4, ,5,/n] -> [ ,5,\n] -> [\n]: x = 4, y = 5
+    // case 2: [ ,4,\n, ,5,\n] -> [\n, ,5,\n] -> [\n]: x = 4, y = 5
+    std::cin >> x >> y; 
+    std::cout << "The numbers you entered are " << x << " and " << y << '\n'; 
     return 0;
 }
