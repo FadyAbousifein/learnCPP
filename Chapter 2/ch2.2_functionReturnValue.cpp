@@ -1,15 +1,19 @@
 #include <iostream>
 
-int getUserInput() {
-    std::cout << "Enter an integer: "; 
+int getValue() {
+    std::cout << "Enter an Integer: "; 
     int x{}; 
     std::cin >> x; 
-    return x;
-    return 6; // the compiler does not catch this be careful! 
+    return x; 
 }
 
+void printValue(int num) {
+    std::cout << "Double your number is: " << 2*num << '\n';
+}
+
+
 int main () {
-    int num{getUserInput()}; 
-    std::cout << "The number doubled is: " << num*2 << '\n'; 
+    int x{getValue()}; 
+    printValue(x); 
     return 0;
 }
