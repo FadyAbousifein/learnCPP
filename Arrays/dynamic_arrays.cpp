@@ -1,49 +1,64 @@
+#include <cstddef>
 #include <iostream> 
+#include <limits>
+#include <string_view>
 #include <vector>
 
-template <typename type> 
-void printVector(const std::vector<type> vec) {
-    for (int i = 0; i < vec.size(); i++) {
-        std::cout << vec[i] << " ";  
-    } std::cout << std::endl;  
+template <typename type>
+void printVector(const std::vector<type>& vec) {
+    for (std::size_t i = 0; i < vec.size(); i++) {
+        std::cout << vec[i] << " ";   
+    } std::cout << std::endl;
 }
 
 template <typename type> 
-void printElement(const std::vector<type>& vec, int index) {
-    if (index < 0 || index > static_cast<int>(vec.size()) - 1) {
-        std::cout << "Invalid index" << std::endl;  
-    } else std::cout << "The element has value " << vec[index] <<  std::endl; 
+void findNumber(const std::vector<type>& vec, double num) {
+   for (std::size_t i = 0; i < vec.size(); i++) {
+        if (vec[i] == num) {
+            std::cout << "The number " << num << " has index " << i; 
+            return; 
+        } 
+   } std::cout << "The number " << num << " was not found";  
 }
 
+template <typename type> 
+type getNumber() {
+    type num {}; 
+    do {
+        std::cout << "Enter a number between 1 and 9: "; 
+        std::cin >> num; 
+        
+        if (!std::cin) {
+            std::cin.clear(); 
+        } 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+
+    } while (num < 1 || num > 9);  
+    return num; 
+}
+
+template <typename type> 
+type findMax(const std::vector<type>& vec) {
+    if (vec.size() == 0)
+        return type {};  
+     type max {vec[0]};  
+    for (std::size_t i = 1; i < vec.size(); i++) {
+        if (vec[i] > max) {
+            max = vec[i];  
+        } 
+    }
+    return max; 
+}
 
 int main (int argc, char *argv[]) {
-    std::vector vec {1,4,9,16,25}; 
-    std::vector<double> temp(365); 
     
-    int sum {}; 
-    int product {1}; 
-    std::vector<int> userInputVector (3);
-    std::cout << "Enter 3 integers: "; 
-    for (int i = 0; i < 3; i++) {
-        std::cin >> userInputVector[i];
-        sum += userInputVector[i]; 
-        product *= userInputVector[i]; 
-    }
-    std::cout << "The sum is: " << sum << "\nThe product is: " << product << std::endl;
+    std::vector data1 { 84, 92, 76, 81, 56 };
+    std::cout << findMax(data1) << '\n';
 
-    std::vector word {'h', 'e', 'l', 'l', 'o'}; 
-    std::cout << "The length of the array is " << std::size(word) << std::endl; 
-    std::cout << word[1] << word.at(1); 
-    
-    std::vector vector {1,2,4,5,6}; 
-    printVector(vector); 
+    std::vector data2 { -13.0, -26.7, -105.5, -14.8 };
+    std::cout << findMax(data2) << '\n';
 
-    std::vector v1 { 0, 1, 2, 3, 4 };
-    printElement(v1, 2);
-    printElement(v1, 5);
-
-    std::vector v2 { 1.1, 2.2, 3.3 };
-    printElement(v2, 0);
-    printElement(v2, -1);
+    std::vector<int> data3 { };
+    std::cout << findMax(data3) << '\n';
     return 0;
 }
