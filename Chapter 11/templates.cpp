@@ -2,7 +2,7 @@
 
 // write your add function template here
 template <typename type> 
-type add(type num1, type num2) {
+type add(type num1, int  num2) {
     return num1 + num2; 
 }
 
@@ -16,15 +16,13 @@ template <typename type1, typename type2>
     return num1 - num2; 
 }
 
-int main() {
-	std::cout << add(2, 3) << '\n';
-	std::cout << add(1.2, 3.4) << '\n';
-    
-    std::cout << mult(2, 3) << '\n';
-	std::cout << mult(1.2, 3) << '\n';
+template <int N> 
+void print() {
+    std::cout << N << std::endl; 
+}
 
-    std::cout << sub(3, 2) << '\n';
-	std::cout << sub(3.5, 2) << '\n';
-	std::cout << sub(4, 1.5) << '\n';
+int main() {
+    short s {}; 
+	std::cout << add(2, s) << '\n';
 	return 0;
 }

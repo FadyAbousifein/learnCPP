@@ -1,5 +1,7 @@
 #include <iostream>
 
+void foo(double);
+
 int main()
 {
     // outer loops between 1 and 5
