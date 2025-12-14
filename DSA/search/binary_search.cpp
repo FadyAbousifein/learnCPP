@@ -1,33 +1,36 @@
 #include <array>
 #include <iostream> 
 
-template <std::size_t size> 
-void binary_search(const std::array<int, size>& arr, int value) {
-    std::size_t l {0}; 
-    std::size_t r {arr.size() - 1}; 
-    std::size_t m {l + (r-l)/2}; 
-
-    while (l <= r) {
-        if (arr[m] == value) {
-            std::cout << "Value found";  
+template <typename type, std::size_t size>
+void binary_search(const std::array<type, size>& array, type value) {
+    int left {0}; 
+    int right {static_cast<int>(array.size()) - 1}; 
+    int midpoint {left + (right - left)/2}; 
+   
+    while (left <= right) {
+        if (array[midpoint] > value) {
+            right = midpoint - 1;  
+        } else if (array[midpoint] == value) {
+            std::cout << "The value " << value << " is at index " << midpoint
+                << std::endl;
             return; 
-        } else if (arr[m] > value) {
-            r = m - 1;  
         } else {
-            l = m + 1; 
-        } 
-        m = l + (r-l)/2;         
+            left = midpoint + 1;
+        }
+        midpoint = left + (right - left)/2; 
     }
-    std::cout << "No value found"; 
-
+    std::cout << "The value " << value << " is not found" << std::endl; 
 }
 
 int main (int argc, char *argv[]) {
     constexpr std::array arr1 {1,2,3,4,4,5}; 
-    binary_search(arr1, 2); 
+    binary_search(arr1, 4); 
    
     constexpr std::array arr2 {1,2,3,4,4,5}; 
-    binary_search(arr1, 9); 
-    
+    binary_search(arr2, 9); 
+
+    constexpr std::array arr3 {"able", "booe", "cant", "zo"}; 
+    binary_search(arr3, "cant"); 
+
     return 0;
 }
