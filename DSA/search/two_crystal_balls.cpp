@@ -2,27 +2,34 @@
 #include <cmath>
 #include <iostream> 
 
-template <typename type, std::size_t size> 
-void two_crystal_balls(const std::array<type, size>& arr, type value) {
-    std::size_t j = std::sqrt(arr.size()); 
-    std::size_t first_break {}; 
-    for (std::size_t i {}; i < j; i+=j) {
-        if (arr[i] == value) {
-            first_break = i; 
-            break; 
-        } 
+template <std::size_t size> 
+void two_crystal_balls(const std::array<int, size>& a) {
+    int jump_amount = std::sqrt(a.size()); 
+    int position {jump_amount}; 
+    for( ; position < a.size(); position+=jump_amount) {
+        if (a[position]) {
+            break;  
+        }
     }
-    for (std::size_t i {}; i < j; i++) {
-        if (arr[i] == value) {
-            std::cout << "value found " << i;
+    position-=jump_amount; 
+    for (int i = position; i < jump_amount; i++) {
+        if(a[i]) {
+            std::cout << "The balls break at " << i << std::endl; 
             return; 
         } 
     }
-    std::cout << "value not found"; 
+
+    std::cout << "The balls do not break\n"; 
 }
 
 int main (int argc, char *argv[]) {
-    constexpr std::array arr {0,0,0,0,0,0,0,0,0,1,1,1,1,1}; 
-    two_crystal_balls(arr, 1); 
+    constexpr std::array arr {0,0,0,0,0,0,0,0,0,1,1,1}; 
+    two_crystal_balls(arr); 
+    constexpr std::array arr1 {0,0,0,0,0,0,0}; 
+    two_crystal_balls(arr1); 
+    constexpr std::array arr2 {1,0,0,0,0,1,1,1}; 
+    two_crystal_balls(arr); 
+    constexpr std::array arr3 {0,0,0,0,0,0,0,0,0,1}; 
+    two_crystal_balls(arr); 
     return 0;
 }
