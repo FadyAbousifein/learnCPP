@@ -16,7 +16,7 @@ Node<type>* create_list() {
     type value {}; 
     std::cin >> value; 
     
-    Node<type>* head = new Node<type>; 
+    Node<type>* head = (new Node<type>); 
     Node<type>* temp = head; 
     
     temp->data = value; 
@@ -62,14 +62,16 @@ void delete_node(Node<type>* head, int position) {
 }
 
 template <typename type> 
-void add_node(Node<type>* head, type new_node, int position) {
+void add_node(Node<type>* head, Node<type>& node, int position) {
     Node<type>* temp = head; 
 
     for (int i = 1; i < position - 1; i++) {
-        head = head->next;  
+        temp = temp->next;  
     }
-    head->next = new Node<type>{new_node, head->next}; 
-    print_list(temp); 
+    node.next = temp->next;
+    temp->next = &node; 
+
+    print_list(head); 
 }
 
 
@@ -78,10 +80,10 @@ int main () {
     print_list(list_1); 
     Node<std::string>* list_2 = create_list<std::string>();
     print_list(list_2); 
-    
+    Node<int> node = *(new Node<int> {89999});  
     delete_node(list_1, 3); 
     delete_node(list_2, 1); 
-    add_node(list_1,899,4); 
+    add_node(list_1,node,4); 
 
     return 0;
 }
