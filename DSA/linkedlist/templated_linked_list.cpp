@@ -22,7 +22,8 @@ Node<type>* create_list() {
         std::cin >> value; 
         temp->next = new Node<type> {value}; 
         temp = temp->next; 
-    } return head; }
+    } return head; 
+}
 
 template <typename type> 
 void print_list(const Node<type>* head) { while (head != nullptr) {
@@ -81,7 +82,7 @@ int main (int argc, char *argv[]) {
     delete list_1; 
     delete list_2; 
     delete &newNode1; 
-    delete &newNode; 
+    delete &newNode1; 
 
     return 0;
 }
