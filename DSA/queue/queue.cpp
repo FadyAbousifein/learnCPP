@@ -11,9 +11,7 @@ template <typename type>
 void enqueue(Node<type>*& tail, Node<type>& node) {
     tail->next = &node; 
     tail = tail->next; 
-}
-
-template <typename type> 
+} template <typename type> 
 void dequeue(Node<type>*& head) {
     Node<type>* to_delete = head; 
     head = head->next; 
@@ -56,13 +54,13 @@ int main (int argc, char *argv[]) {
     create_queue(head_1,tail_1); 
     print_queue(head_1); 
     
-    Node<int> node {*(new Node<int> {9999})}; 
-    enqueue(tail_1, node);
+    Node<int>* node {new Node<int> {9999}}; 
+    enqueue(tail_1, *node);
     print_queue(head_1); 
     
     dequeue(head_1);
     print_queue(head_1); 
 
-
+    delete &node; 
     return 0;
 }
