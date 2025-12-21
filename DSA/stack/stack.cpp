@@ -49,6 +49,11 @@ void pop(Node<type>*& head) {
     delete to_delete; 
 }
 
+template <typename type> 
+type peek(Node<type>* head) {
+    return head->data; 
+}
+
 
 int main (int argc, char *argv[]) {
     Node<int>* head_1 {}; 
@@ -62,7 +67,9 @@ int main (int argc, char *argv[]) {
     print_stack(head_1); 
     
     pop(head_1);
-    print_stack(head_1); 
+    print_stack(head_1);
+
+    std::cout << peek(head_1); 
 
     return 0;
 }
