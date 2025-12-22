@@ -1,48 +1,52 @@
 #include <iostream> 
 
 template <typename type> 
-struct DynamicArray {
-    type* data; 
-    int size {}; 
-    int capacity {5}; 
+struct Vector {
+    type* data {}; 
+    std::size_t size {}; 
+    std::size_t capacity {2}; 
 }; 
 
 template <typename type> 
-void create_dynamic_array(DynamicArray<type>*& head) {
-    head =  new DynamicArray<type> {}; 
-    head->data = new type[head->capacity]; 
-}
-
-template <typename type> 
-void push_back(DynamicArray<type>* head, type value) {
-    if (head->capacity == head->size) {
-        head->capacity *=2; 
-        head->data[head->size] = value; 
-        head->size++; 
+void push_back(Vector<type>& vector, type item) {
+    if (vector.size == vector.capacity) {
+        vector.capacity *= 2; 
+        type* old_data {vector.data}; 
+        vector.data = new type[vector.capacity]; 
+        for (std::size_t i {}; i < vector.size; i++) {
+            vector.data[i] = old_data[i];  
+        }
+        vector.data[vector.size++] = item; 
+        delete[] old_data;
+    } else if (!vector.data) {
+        vector.data = new type[vector.capacity];
+        vector.data[vector.size++] = item; 
     } else {
-        head->data[head->size] = value; 
-        head->size++;
+        vector.data[vector.size++] = item; 
     }
 }
 
 template <typename type> 
-void print_dynamic_array(DynamicArray<type>* head) {
-    for (int i = 0; i < head->size; i++) {
-        std::cout << head->data[i] << " -> ";  
-    } std::cout << std::endl;
+void print_vector(Vector<type> vector) {
+    for (std::size_t i {}; i < vector.size; i++) {
+        std::cout << vector.data[i] << " -> ";  
+    } std::cout << std::endl; 
+}
+
+// onbviously add edge cases this was done just a quick implementation
+template <typename type> 
+void pop_vector(Vector<type>& vector) {
+    vector.size--;  
 }
 
 int main (int argc, char *argv[]) {
-   
-    DynamicArray<int>* head; 
-    create_dynamic_array(head);
-
-    push_back(head, 4); 
-    push_back(head, 5); 
-    push_back(head, 6);
-
-    print_dynamic_array(head); 
-
+    Vector<int> vec1 {};
+    push_back(vec1, 900);
+    push_back(vec1, 900); 
+    push_back(vec1, 900); 
+    print_vector(vec1); 
+    pop_vector(vec1); 
+    print_vector(vec1); 
 
     return 0;
 }
