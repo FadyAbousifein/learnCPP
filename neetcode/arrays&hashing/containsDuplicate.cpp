@@ -31,11 +31,14 @@ class Solution {
         }
 }; 
 
-// 
+// O(n) - Hash set contains only unique keys
 class Solution {
     public:
         bool hasDuplicate(std::vector<int>& nums) {
-            std::unordered_map<int, int> umap; 
-            
+            std::unordered_set<int> uset {}; 
+            for (std::size_t i {}; i < nums.size(); i++) {
+                if (uset.count(nums[i])) return true; 
+                else uset.insert(nums[i]);  
+            } return false; 
         }
 }; 
