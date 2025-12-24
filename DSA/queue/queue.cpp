@@ -1,6 +1,9 @@
 #include <cstddef>
 #include <iostream> 
 
+
+// Queues are abstract data structures, meaning that they define how to use a data structure 
+// but under the hood their implementation can be through an array, linked list etc.  
 template <typename type> 
 struct Node {
     type data {}; 
