@@ -1,44 +1,40 @@
 #include <algorithm>
-#include <iterator>
-#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
-// O(n^2) - Brute force solution 
-class Solution {
-    public:
-        bool hasDuplicate(std::vector<int>& nums) {
-            for (std::size_t i{}; i < nums.size(); i++) {
-                for (std::size_t j{i+1}; j < nums.size(); j++) {
-                    if (nums[i] == nums[j]) {
-                        return true;  
-                    } 
-                } 
-            } return false; 
-        }
-}; 
+// O(n^2) - Brute Force Solution
+class Solution1 {
+public:
+    bool containsDuplicate(std::vector<int>& nums) {
+       for (std::size_t i {}; i < nums.size() - 1; i++) {
+            for (std::size_t j {i + 1}; j < nums.size(); j++)  {
+                if (nums[i] == nums[j]) return true; 
+            }
+       } return false; 
+    }
+};
 
-// O(nlogn) - Sort then double pointer 
-class Solution {
-    public:
-        bool hasDuplicate(std::vector<int>& nums) {
-            std::sort(nums.begin(), nums.end()); 
-            std::size_t i {}; 
-            for (std::size_t j {i+1}; j < nums.size(); j++, i++)  {
-                if (nums[i] == nums[j]) {
-                   return true;  
-                }
-            } return false; 
-        }
-}; 
+// O(nlogn) - Sorted Solution 
+class Solution2 {
+public:
+    bool containsDuplicate(std::vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        for (std::size_t i {}, j {i + 1}; i < nums.size() - 1; i++, j++) {
+            if (nums[i] == nums[j]) return true; 
+        } return false; 
 
-// O(n) - Hash set contains only unique keys
-class Solution {
-    public:
-        bool hasDuplicate(std::vector<int>& nums) {
-            std::unordered_set<int> uset {}; 
-            for (std::size_t i {}; i < nums.size(); i++) {
-                if (uset.count(nums[i])) return true; 
-                else uset.insert(nums[i]);  
-            } return false; 
-        }
-}; 
+    }
+};
+
+// O(n) - Hash set Solution 
+class Solution3 {
+public:
+    bool containsDuplicate(std::vector<int>& nums) {
+        std::unordered_set<int> uset {};  
+        for (std::size_t i {}; i < nums.size(); i++)  {
+            if (uset.count(nums[i]))  
+                return true;  
+            else uset.insert(nums[i]); 
+        } return false; 
+    }
+};
